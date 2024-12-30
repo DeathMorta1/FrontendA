@@ -14,7 +14,13 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- Por ahora vacío. Aquí van los productos -->
+                    @for(product of products; track product.id){
+                        <tr>
+                            <td>{{product.description}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.available}}</td>
+                        </tr>
+                    }
                   </tbody>
                 </table>
               </div>
