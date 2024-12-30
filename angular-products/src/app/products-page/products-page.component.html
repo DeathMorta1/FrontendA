@@ -3,19 +3,23 @@
       Mi lista de productos
     </div>
     <div class="card-block">
-      <div class="table-responsive">
-        <table class="table table-striped m-0">
-          <thead>
-            <tr>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Disponible</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Por ahora vacío. Aquí van los productos -->
-          </tbody>
-        </table>
-      </div>
+        @if(products.length){
+            <div class="table-responsive">
+                <table class="table table-striped m-0">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Precio</th>
+                      <th>Disponible</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Por ahora vacío. Aquí van los productos -->
+                  </tbody>
+                </table>
+              </div>
+        }@else{
+            <h3 class="p-4">No hay productos disponibles</h3>
+        }
     </div>
   </div>
