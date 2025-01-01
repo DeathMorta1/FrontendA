@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Product } from '../interfaces/product';
-import { NgClass } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { FormsModule,NgForm } from '@angular/forms';
 
 @Component({
   selector: 'products-page',
-  imports: [NgClass,FormsModule],
+  imports: [NgClass,FormsModule,JsonPipe],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css'
 })
@@ -13,7 +13,7 @@ import { FormsModule,NgForm } from '@angular/forms';
 export class ProductsPageComponent {
 
   title = "Mi lista de productos";
-  
+
   products: Product[] =[{
     id: 1,
     description: 'SSD hard drive',
@@ -39,7 +39,7 @@ export class ProductsPageComponent {
 
   showImage = true;
 
-  newProduct = {
+  newProduct={
     id: 4,
     description: '',
     price: 0,
@@ -63,7 +63,9 @@ export class ProductsPageComponent {
   }
 
   addProduct(form: NgForm) {
-    this.products.push(this.newProduct);
+    const p = {...this.newProduct};
+    this.products.push(p);
+    console.log(this.products);
     form.resetForm();
     this.newProduct.imageUrl = '';
     this.newProduct.id++;
