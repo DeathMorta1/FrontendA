@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Product } from '../interfaces/product';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'products-page',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css'
 })
@@ -24,4 +25,11 @@ export class ProductsPageComponent {
     imageUrl: '/motherboard.jpg',
     rating: 4
   }];
+
+  showImage = true;
+
+  toggleImage(){
+    this.showImage = !this.showImage;
+  };
+
 }
