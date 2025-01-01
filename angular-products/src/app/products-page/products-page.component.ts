@@ -11,7 +11,9 @@ import { FormsModule,NgForm } from '@angular/forms';
 })
 
 export class ProductsPageComponent {
+
   title = "Mi lista de productos";
+  
   products: Product[] =[{
     id: 1,
     description: 'SSD hard drive',
@@ -49,6 +51,7 @@ export class ProductsPageComponent {
   toggleImage(){
     this.showImage = !this.showImage;
   };
+
   changeImage(event: Event) {
     const fileInput = event.target as HTMLInputElement;
     if (!fileInput.files?.length) return;

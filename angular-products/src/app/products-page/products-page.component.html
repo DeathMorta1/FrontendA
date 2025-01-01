@@ -54,11 +54,12 @@
                   <thead>
                     <tr>
                       <th>
+                        @let buttonText = (showImage? 'Hide ':'Show ') + 'images';
                         <button class="btn btn-sm" [ngClass]="{
                             'btn-danger': this.showImage,
                             'btn-primary': !this.showImage,
                         }" (click)="toggleImage()">
-                        {{showImage?'Hide':'Show'}} images
+                        {{buttonText}}
                         </button>
                       </th>
                       <th>Producto</th>
