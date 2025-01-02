@@ -8,5 +8,4 @@ import { RestaurantsPageComponent } from './restaurants-page/restaurants-page.co
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'angular-foodscore';
 }

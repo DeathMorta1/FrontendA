@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { Restaurant } from '../interfaces/restaurant';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'restaurants-page',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './restaurants-page.component.html',
   styleUrl: './restaurants-page.component.css'
 })
 export class RestaurantsPageComponent {
-
+  restaurants: Restaurant[] = [];
 }
