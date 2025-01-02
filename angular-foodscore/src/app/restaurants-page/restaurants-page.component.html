@@ -1,17 +1,17 @@
 <form action="#" class="mt-4" id="newRestaurant" novalidate>
     <div class="mb-3">
       <label for="name">Nombre</label>
-      <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
+      <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" [(ngModel)]="newRestaurant.name">
       <div class="invalid-feedback">Nombre obligatorio (solo letras y espacios).</div>
     </div>
     <div class="mb-3">
       <label for="description">Descripción</label>
-      <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description"></textarea>
+      <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description" [(ngModel)] = "newRestaurant.description"></textarea>
       <div class="invalid-feedback">Descripción obligatoria.</div>
     </div>
     <div class="mb-3">
       <label for="cuisine">Cocina</label>
-      <input type="text" class="form-control" name="cuisine" id="cuisine" placeholder="Cuisine">
+      <input type="text" class="form-control" name="cuisine" id="cuisine" placeholder="Cuisine" [(ngModel)] = "newRestaurant.cuisine">
       <div class="invalid-feedback">Tipo de cocina obligatoria.</div>
     </div>
     <p>Días de apertura</p>
@@ -48,7 +48,7 @@
     </div>
     <div class="mb-3">
       <label for="phone">Teléfono</label>
-      <input type="number" class="form-control" id="phone" name="phone" placeholder="Phone number">
+      <input type="number" class="form-control" id="phone" name="phone" placeholder="Phone number" [(ngModel)] = "newRestaurant.phone">
       <div class="invalid-feedback">El teléfono debe tener 9 dígitos.</div>
     </div>
     <div class="mb-3">
@@ -56,7 +56,9 @@
       <input type="file" class="form-control" id="image" name="image">
       <div class="invalid-feedback">La imagen es obligatoria.</div>
     </div>
-    <img src="" alt="" id="imgPreview" class="img-thumbnail d-none mb-3">
+    @if(newRestaurant.image){
+        <img [src]="newRestaurant.image" alt="" id="imgPreview" class="img-thumbnail d-none mb-3">
+    }
 
     <div>
       <button type="submit" class="btn btn-primary">Crear</button>

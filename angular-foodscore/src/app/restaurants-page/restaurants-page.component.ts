@@ -10,4 +10,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class RestaurantsPageComponent {
   restaurants: Restaurant[] = [];
+
+  newRestaurant ={
+    name:'',
+    image:'',
+    cuisine:'',
+    description:'',
+    phone:'',
+    daysOpen:[]
+  };
 }
