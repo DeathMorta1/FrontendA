@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './restaurants-page.component.css'
 })
 export class RestaurantsPageComponent {
+  readonly days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  daysOpen: boolean[] = (new Array(7)).fill(true);
+  weekDay: number = new Date().getDay();
   restaurants: Restaurant[] = [];
 
   newRestaurant ={
