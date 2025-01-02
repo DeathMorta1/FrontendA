@@ -19,4 +19,15 @@ export class RestaurantsPageComponent {
     phone:'',
     daysOpen:[]
   };
+
+  changeImage(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (!fileInput.files || fileInput.files.length === 0) { return; }
+      const reader: FileReader = new FileReader();
+      reader.readAsDataURL(fileInput.files[0]);
+      reader.addEventListener('loadend', () => {
+        this.newRestaurant.image = reader.result as string;
+      });
+    }
+   
 }
