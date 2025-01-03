@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Restaurant } from '../interfaces/restaurant';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,NgForm } from '@angular/forms';
 
 @Component({
   selector: 'restaurants-page',
@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './restaurants-page.component.html',
   styleUrl: './restaurants-page.component.css'
 })
+
 export class RestaurantsPageComponent {
   readonly days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   daysOpen: boolean[] = (new Array(7)).fill(true);
@@ -33,9 +34,11 @@ export class RestaurantsPageComponent {
     });
   }
 
-  addRestaurant(){
+  addRestaurant(form:NgForm){
     this.newRestaurant.daysOpen = this.days.filter((p,i)=>this.daysOpen[i]===true);
-    const p = {...this.newRestaurant};
-    console.log(p);
+    this.restaurants.push({...this.newRestaurant});
+    form.resetForm();
+    this.newRestaurant.image = '';
+    console.log(this.restaurants);
   }
 }

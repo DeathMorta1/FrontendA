@@ -1,4 +1,4 @@
-<form class="mt-4" (ngSubmit)="addRestaurant()" #productForm="ngForm">
+<form class="mt-4" (ngSubmit)="addRestaurant(restaurantForm)" #restaurantForm="ngForm">
     <div class="mb-3">
       <label for="name">Nombre</label>
       <input type="text" class="form-control" name="name" placeholder="Enter name" [(ngModel)]="newRestaurant.name">
@@ -37,4 +37,32 @@
   </form>
   <div id="placesContainer" class="mb-4 mt-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
 </div>
-
+<div id="placesContainer" class="mb-4 mt-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+  @for(restaurant of restaurants; track $index){
+      <div class="col">
+        <div class="card h-100 shadow">
+          <img class="card-img-top" [src]="restaurant.image" alt="">
+          <div class="card-body">
+            <button class="btn btn-danger delete"><i class="bi bi-trash"></i></button>
+            <h4 class="card-title">{{restaurant.name}}</h4>
+            <p class="card-text">{{restaurant.description}}</p>
+            <div class="card-text">
+              <small class="text-muted">
+                <strong>Días: {{restaurant.daysOpen}}</strong> 
+              </small>
+              <span class="badge ms-2 bg-success">Abierto</span>
+              <span class="badge ms-2 bg-danger">Cerrado</span>
+            </div>
+            <div class="card-text">
+              <small class="text-muted phone">
+                <strong>Teléfono: {{restaurant.phone}}</strong>
+              </small>
+            </div>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">{{restaurant.cuisine}}</small>
+          </div>
+        </div> 
+      </div>
+  }
+</div>
