@@ -37,12 +37,12 @@
 </form>
 
 <div class="mb-4 mt-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
-  @for(restaurant of restaurants; track $index){
+  @for(restaurant of restaurants; track $index ; let i = $index){
       <div class="col">
         <div class="card h-100 shadow">
           <img class="card-img-top" [src]="restaurant.image" alt="">
           <div class="card-body">
-            <button class="btn btn-danger delete"><i class="bi bi-trash"></i></button>
+            <button class="btn btn-danger delete" (click)="removeRestaurant(i)"><i class="bi bi-trash"></i></button>
             <h4 class="card-title">{{restaurant.name}}</h4>
             <p class="card-text">{{restaurant.description}}</p>
             <div class="card-text">

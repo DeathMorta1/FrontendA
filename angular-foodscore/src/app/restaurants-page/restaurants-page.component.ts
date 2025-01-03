@@ -39,6 +39,10 @@ export class RestaurantsPageComponent {
     this.restaurants.push({...this.newRestaurant});
     form.resetForm();
     this.newRestaurant.image = '';
-    console.log(this.restaurants);
   }
+
+  removeRestaurant(i:number){
+    this.restaurants.splice(i,1);
+  }
+
 }
