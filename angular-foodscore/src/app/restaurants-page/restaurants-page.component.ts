@@ -20,17 +20,22 @@ export class RestaurantsPageComponent {
     cuisine:'',
     description:'',
     phone:'',
-    daysOpen:[]
+    daysOpen:[] as string[]
   };
 
   changeImage(event: Event) {
     const fileInput = event.target as HTMLInputElement;
     if (!fileInput.files || fileInput.files.length === 0) { return; }
-      const reader: FileReader = new FileReader();
-      reader.readAsDataURL(fileInput.files[0]);
-      reader.addEventListener('loadend', () => {
-        this.newRestaurant.image = reader.result as string;
-      });
-    }
-   
+    const reader: FileReader = new FileReader();
+    reader.readAsDataURL(fileInput.files[0]);
+    reader.addEventListener('loadend', () => {
+      this.newRestaurant.image = reader.result as string;
+    });
+  }
+
+  addRestaurant(){
+    this.newRestaurant.daysOpen = this.days.filter((p,i)=>this.daysOpen[i]===true);
+    const p = {...this.newRestaurant};
+    console.log(p);
+  }
 }
