@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Tasks manager</title>
+    <script type="module" src="/src/index.ts"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-white">My tasks List</div>
+        <div class="card-block">
+          <div class="table-responsive">
+            <table class="table table-striped m-0" id="taskTable">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Tarea</th>
+                  <th>Finalizada</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3 mb-3">
+        <form id="taskForm">
+          <label class="mb-3 row">
+            <span class="col-auto align-self-center">New task</span>
+            <div class="col">
+              <input class="form-control" type="text" name="description" />
+            </div>
+            <div class="col-auto"><button class="btn btn-primary" type="submit">Add task</button></div>
+          </label>
+        </form>
+      </div>
+    </div>
+
+    <template id="taskTemplate">
+      <tr>
+        <td>id</td>
+        <td>description</td>
+        <td>
+          <button class="btn btn-sm btn-success">🗹 Yes</button>
+          <button class="btn btn-sm btn-warning">🗷 No</button>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-danger">🗙 Delete</button>
+        </td>
+      </tr>
+    </template>
+  </body>
+</html>
