@@ -33,23 +33,22 @@ function organizeShoes1(shoes) {
 
 	for (const shoe of shoes) {
 		if (shoe.type === 'I') {
-			iShoes.push(shoe.size)
-			continue
-		}
-
-		rShoes.push(shoe.size)
+			iShoes.push(shoe.size);
+		}else{
+            rShoes.push(shoe.size);
+        }
 	}
 
 	for (const iShoe of iShoes) {
 		const rShoeI = rShoes.findIndex((shoe) => shoe === iShoe)
-		if (rShoeI === -1) continue
-
-		pairOfShoes.push(iShoe)
-		rShoes.splice(rShoeI, 1)
+		if (rShoeI !== -1){
+            pairOfShoes.push(iShoe);
+            rShoes.splice(rShoeI, 1);
+        }
 	}
 
 	return pairOfShoes
 }
   
-console.log(organizeShoes(shoes));
+console.log(organizeShoes1(shoes));
 // [38, 42]
