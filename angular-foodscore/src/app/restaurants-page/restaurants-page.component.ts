@@ -39,6 +39,7 @@ export class RestaurantsPageComponent {
     this.restaurants.push({...this.newRestaurant});
     form.resetForm();
     this.newRestaurant.image = '';
+    this.daysOpen = (new Array(7)).fill(true);
   }
 
   removeRestaurant(i:number){
