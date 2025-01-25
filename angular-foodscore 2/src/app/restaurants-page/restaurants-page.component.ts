@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, signal} from '@angular/core';
 import { Restaurant } from '../interfaces/restaurant';
-import { FormsModule,NgForm } from '@angular/forms';
+import { RestaurantFormComponent } from '../restaurant-form/restaurant-form.component';
 
 @Component({
   selector: 'restaurants-page',
-  imports: [FormsModule],
+  imports: [RestaurantFormComponent],
   templateUrl: './restaurants-page.component.html',
   styleUrl: './restaurants-page.component.css'
 })
@@ -13,37 +13,14 @@ export class RestaurantsPageComponent {
   readonly days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   daysOpen: boolean[] = (new Array(7)).fill(true);
   weekDay: number = new Date().getDay();
-  restaurants: Restaurant[] = [];
+  restaurants = signal<Restaurant[]>([]);
 
-  newRestaurant ={
-    name:'',
-    image:'',
-    cuisine:'',
-    description:'',
-    phone:'',
-    daysOpen:[] as string[]
-  };
-
-  changeImage(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (!fileInput.files || fileInput.files.length === 0) { return; }
-    const reader: FileReader = new FileReader();
-    reader.readAsDataURL(fileInput.files[0]);
-    reader.addEventListener('loadend', () => {
-      this.newRestaurant.image = reader.result as string;
-    });
+  addRestaurant(restaurant: Restaurant){
+    this.restaurants.update(restaurants=> restaurants.concat(restaurant));
   }
 
-  addRestaurant(form:NgForm){
-    this.newRestaurant.daysOpen = this.days.filter((p,i)=>this.daysOpen[i]===true);
-    this.restaurants.push({...this.newRestaurant});
-    form.resetForm();
-    this.newRestaurant.image = '';
-    this.daysOpen = (new Array(7)).fill(true);
-  }
-
-  removeRestaurant(i:number){
-    this.restaurants.splice(i,1);
+  removeRestaurant(restaurant: Restaurant){
+    this.restaurants.update(restaurants=> restaurants.filter(p => p !== restaurant));
   }
 
 }
