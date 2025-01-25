@@ -1,34 +1,21 @@
 <restaurant-form (add)="addRestaurant($event)"></restaurant-form>
 
+<nav class="navbar navbar-light bg-light justify-content-between mt-3">
+    <div class="col-auto ms-3">
+        <input type="checkbox" class="btn-check" id="show-open">
+        <label class="btn btn-outline-primary" for="show-open">Show open</label>
+    </div>
+    <form class="container-fluid mb-0 col">
+        <input class="form-control" type="text" name="search" placeholder="Filtrar" aria-label="Search">
+    </form>
+</nav>
+
 <div class="mb-4 mt-4 row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
-  @for(restaurant of restaurants(); track $index ; let i = $index){
-      <div class="col">
-        <div class="card h-100 shadow">
-          <img class="card-img-top" [src]="restaurant.image" alt="">
-          <div class="card-body">
-            <button class="btn btn-danger delete" (click)="removeRestaurant(restaurant)"><i class="bi bi-trash"></i></button>
-            <h4 class="card-title">{{restaurant.name}}</h4>
-            <p class="card-text">{{restaurant.description}}</p>
-            <div class="card-text">
-              <small class="text-muted">
-                <strong>Días: {{restaurant.daysOpen}}</strong> 
-              </small>
-              @if(restaurant.daysOpen.includes(days[weekDay])){
-                <span class="badge ms-2 bg-success">Abierto</span>
-              }@else{
-                <span class="badge ms-2 bg-danger">Cerrado</span>
-              }
-            </div>
-            <div class="card-text">
-              <small class="text-muted phone">
-                <strong>Teléfono: {{restaurant.phone}}</strong>
-              </small>
-            </div>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">{{restaurant.cuisine}}</small>
-          </div>
-        </div> 
-      </div>
-  }
+    @for(restaurant of restaurants(); track $index ; let i = $index){
+
+        <restaurant-card 
+        [product]="restaurant"
+        (deleted)="deleteRestaurant(restaurant)"></restaurant-card>
+
+    }
 </div>

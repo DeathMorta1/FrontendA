@@ -1,0 +1,29 @@
+
+<div class="col">
+    <div class="card h-100 shadow">
+    <img class="card-img-top" [src]="product()!.image" alt="">
+    <div class="card-body">
+        <button class="btn btn-danger delete" (click)="removeRestaurant()"><i class="bi bi-trash"></i></button>
+        <h4 class="card-title">{{product()!.name}}</h4>
+        <p class="card-text">{{product()!.description}}</p>
+        <div class="card-text">
+        <small class="text-muted">
+            <strong>Días: {{product()!.daysOpen}}</strong> 
+        </small>
+        @if(product()!.daysOpen.includes(days[weekDay])){
+            <span class="badge ms-2 bg-success">Abierto</span>
+        }@else{
+            <span class="badge ms-2 bg-danger">Cerrado</span>
+        }
+        </div>
+        <div class="card-text">
+        <small class="text-muted phone">
+            <strong>Teléfono: {{product()!.phone}}</strong>
+        </small>
+        </div>
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">{{product()!.cuisine}}</small>
+    </div>
+    </div> 
+</div>
