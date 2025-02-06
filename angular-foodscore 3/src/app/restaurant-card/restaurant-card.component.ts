@@ -1,5 +1,7 @@
-import {Component, input, output} from '@angular/core';
+import {Component, DestroyRef, inject, input, output} from '@angular/core';
 import { Restaurant } from '../interfaces/restaurant';
+import { RestaurantsService } from '../services/restaurants.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'restaurant-card',
@@ -13,11 +15,16 @@ export class RestaurantCardComponent {
   daysOpen: boolean[] = (new Array(7)).fill(true);
   weekDay: number = new Date().getDay();
 
+  #restauranService = inject(RestaurantsService);
+  #destroyRef = inject(DestroyRef);
+
   product = input<Restaurant>();
   deleted = output();
-
+  
   removeRestaurant(){
-    this.deleted.emit();
+    this.#restauranService.deleteRestaurant(this.product()!.id!)
+    .pipe(takeUntilDestroyed(this.#destroyRef))
+    .subscribe(() => this.deleted.emit());
   }
 }
 

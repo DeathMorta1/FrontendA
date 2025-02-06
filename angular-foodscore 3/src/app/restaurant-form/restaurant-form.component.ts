@@ -1,18 +1,16 @@
-import { ChangeDetectorRef, Component, inject, output } from '@angular/core';
+import {Component, DestroyRef, inject, output } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { Restaurant } from '../interfaces/restaurant';
+import { EncodeBase64Directive } from '../directives/encode-base64.directive';
+import { RestaurantsService } from '../services/restaurants.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'restaurant-form',
-  imports: [FormsModule],
+  imports: [FormsModule, EncodeBase64Directive],
   templateUrl: './restaurant-form.component.html',
   styleUrl: './restaurant-form.component.css'
 })
-
-//Esta es la segunda version que hago aqui he cambiado la variable que se pasaba por referencia de ngForm,
-//por el bug este del asco que no hace bien el reset del formulario del array de DaysOpen cuando todo esta seleccionado, asi que he
-//tenido que añadir la propiedad fileName para el reset del texto de la imagen y crear la funcion de resetRestaurant
-//para asi poder resetear el valor del restaurante.
 
 export class RestaurantFormComponent {
   readonly days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -20,6 +18,9 @@ export class RestaurantFormComponent {
   weekDay: number = new Date().getDay();
   newRestaurant!: Restaurant;
   fileName = '';
+
+  #productService = inject(RestaurantsService);
+  #destroyRef = inject(DestroyRef);
 
   constructor(){
     this.resetRestaurant();
@@ -36,26 +37,20 @@ export class RestaurantFormComponent {
     };
   }
 
-  #changeDetector = inject(ChangeDetectorRef);
   add = output<Restaurant>();
-
-  changeImage(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (!fileInput.files || fileInput.files.length === 0) { return; }
-      const reader: FileReader = new FileReader();
-      reader.readAsDataURL(fileInput.files[0]);
-      reader.addEventListener('loadend', () => {
-        this.newRestaurant.image = reader.result as string;
-        this.#changeDetector.markForCheck();
-    });
-  }
 
   addRestaurant(){
     this.newRestaurant.daysOpen = this.days.filter((p,i)=>this.daysOpen[i]===true);
-    this.add.emit({...this.newRestaurant});
-    this.newRestaurant.image = '';
-    this.fileName= '';
-    this.daysOpen = (new Array(7)).fill(true);
-    this.resetRestaurant();
+    console.log(this.newRestaurant.daysOpen);
+
+    this.#productService.addRestaurant(this.newRestaurant)
+    .pipe(takeUntilDestroyed(this.#destroyRef))
+    .subscribe((restaurant) =>{
+      this.add.emit(restaurant);
+      this.newRestaurant.image = '';
+      this.fileName= '';
+      this.daysOpen = (new Array(7)).fill(true);
+      this.resetRestaurant();
+    });
   }
 }

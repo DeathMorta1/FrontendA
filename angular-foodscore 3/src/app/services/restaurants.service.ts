@@ -10,14 +10,15 @@ import { RestaurantsResponse, SingleRestaurantResponse } from "../interfaces/res
 })
 
 export class RestaurantsService {
-  #urlRestaurants = 'https://api.fullstackpro.es/foodscore-lite';
+  #urlRestaurants = 'restaurants';
   #http= inject(HttpClient);
 
   getRestaurants(): Observable<Restaurant[]>{
     return this.#http.get<RestaurantsResponse>(this.#urlRestaurants)
     .pipe(map(r => r.restaurants));
   }
-
+  
+  //????
   getRestaurant(id: number): Observable<Restaurant>{
     return this.#http.get<SingleRestaurantResponse>(`${this.#urlRestaurants}/${id}`)
     .pipe(map(r => r.restaurant));

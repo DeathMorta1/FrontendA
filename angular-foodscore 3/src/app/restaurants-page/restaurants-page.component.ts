@@ -1,8 +1,10 @@
-import { Component, computed, signal} from '@angular/core';
+import { Component, computed, inject, signal} from '@angular/core';
 import { Restaurant } from '../interfaces/restaurant';
 import { RestaurantFormComponent } from '../restaurant-form/restaurant-form.component';
 import { RestaurantCardComponent } from '../restaurant-card/restaurant-card.component';
 import { FormsModule} from '@angular/forms';
+import { RestaurantsService } from '../services/restaurants.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'restaurants-page',
@@ -15,6 +17,7 @@ export class RestaurantsPageComponent {
   readonly days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   weekDay: number = new Date().getDay();
   restaurants = signal<Restaurant[]>([]);
+  #restaurantService = inject(RestaurantsService);
 
   search = signal('');
   open = signal(true);
@@ -25,6 +28,12 @@ export class RestaurantsPageComponent {
         p.name.toLowerCase().includes(searchLower) ||
         p.description.toLowerCase().includes(searchLower))
   });
+
+  constructor(){
+    this.#restaurantService.getRestaurants()
+    .pipe(takeUntilDestroyed())
+    .subscribe((restaurants)=>this.restaurants.set(restaurants));
+  }
 
   toggleRestaurants(){
     this.open.update(o=>!o);

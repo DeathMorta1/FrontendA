@@ -26,7 +26,7 @@
     </div>
     <div class="mb-3">
       <label for="image">Main photo</label>
-      <input type="file" class="form-control" accept="image/*" (change)="changeImage($event)" name="fileName" [(ngModel)] ="fileName" />
+      <input type="file" class="form-control" accept="image/*" name="fileName" [(ngModel)] ="fileName" encodeBase64 (encoded)="newRestaurant.image = $event" />
     </div>
     @if(newRestaurant.image){
         <img [src]="newRestaurant.image" alt="" class="img-thumbnail mb-3">
