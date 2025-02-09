@@ -12,7 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export class RestaurantCardComponent {
   readonly days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  daysOpen: boolean[] = (new Array(7)).fill(true);
+  
   weekDay: number = new Date().getDay();
 
   #restauranService = inject(RestaurantsService);
@@ -20,6 +20,7 @@ export class RestaurantCardComponent {
 
   product = input<Restaurant>();
   deleted = output();
+  
   
   removeRestaurant(){
     this.#restauranService.deleteRestaurant(this.product()!.id!)

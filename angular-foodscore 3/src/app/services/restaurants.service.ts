@@ -18,7 +18,7 @@ export class RestaurantsService {
     .pipe(map(r => r.restaurants));
   }
   
-  //????
+  //???? no he llegado a utilizarlo
   getRestaurant(id: number): Observable<Restaurant>{
     return this.#http.get<SingleRestaurantResponse>(`${this.#urlRestaurants}/${id}`)
     .pipe(map(r => r.restaurant));

@@ -40,8 +40,11 @@ export class RestaurantFormComponent {
   add = output<Restaurant>();
 
   addRestaurant(){
-    this.newRestaurant.daysOpen = this.days.filter((p,i)=>this.daysOpen[i]===true);
-    console.log(this.newRestaurant.daysOpen);
+    
+    this.newRestaurant.daysOpen = this.daysOpen.reduce<string[]>((acc, p, i) => {
+      if (p === true) acc.push(i.toString());
+      return acc;
+    }, []);
 
     this.#productService.addRestaurant(this.newRestaurant)
     .pipe(takeUntilDestroyed(this.#destroyRef))

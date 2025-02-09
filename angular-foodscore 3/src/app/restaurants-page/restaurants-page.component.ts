@@ -32,7 +32,13 @@ export class RestaurantsPageComponent {
   constructor(){
     this.#restaurantService.getRestaurants()
     .pipe(takeUntilDestroyed())
-    .subscribe((restaurants)=>this.restaurants.set(restaurants));
+    .subscribe((restaurants) => {
+      const transformedRestaurants = restaurants.map(restaurant => ({
+        ...restaurant,
+        daysOpen: restaurant.daysOpen.map((d) => this.days[+d])
+      }));
+      this.restaurants.set(transformedRestaurants);
+    });
   }
 
   toggleRestaurants(){
@@ -40,6 +46,7 @@ export class RestaurantsPageComponent {
   }
   
   addRestaurant(restaurant: Restaurant){
+    restaurant.daysOpen = restaurant.daysOpen.map((d) => this.days[+d]);
     this.restaurants.update(restaurants=> [...restaurants,restaurant]);
   }
 
